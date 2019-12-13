@@ -15,25 +15,25 @@ module Actions
     current_head_position = state.snake.positions.first
     new_position = nil
     case state.next_direction
-    when UP
+    when Model::Direction::UP
       #Decrease Row
       new_position = Model::Coord.new(
           current_head_position.row - 1,
           current_head_position.col
       )
-    when RIGHT
+    when Model::Direction::RIGHT
       #increase col
       new_position = Model::Coord.new(
           current_head_position.row ,
           current_head_position.col + 1
       )
-    when DOWN
+    when Model::Direction::DOWN
       #increase row
       new_position = Model::Coord.new(
           current_head_position.row + 1,
           current_head_position.col
       )
-    when LEFT
+    when Model::Direction::LEFT
       #decrease col
       new_position = Model::Coord.new(
           current_head_position.row ,
@@ -53,7 +53,7 @@ module Actions
   end
 
   def self.move_snake_to(state, next_position)
-    snake = state.snake.positions
+    snake = state.snake
     new_positions = [next_position] + snake.positions[0...-1]
     state.snake.positions = new_positions
   end
