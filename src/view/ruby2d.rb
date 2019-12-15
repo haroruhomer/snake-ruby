@@ -6,7 +6,7 @@ module View
     end
     def render(state)
       extend Ruby2D::DSL
-      set title: "Hello Triangle",
+      set title: "Hello",
           width: state.grid.cols * @pixel_size,
           height: state.grid.rows * @pixel_size
       render_food(state)

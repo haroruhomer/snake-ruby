@@ -30,7 +30,7 @@ module Model
                          ]),
         Model::Food.new(3,3),
         Model::Grid.new(10,10),
-        Direction::DOWN,
+        Model::Direction::DOWN,
         false #game_finished
     )
 

@@ -23,7 +23,8 @@ class ActionsTest < Minitest::Test
         Model::Direction::DOWN,
         false #game_finished
     )
+
     new_state = Actions::move_snake(initial_state)
-    assert_equal(new_state, expected_state)
+    assert_equal(expected_state,new_state)
   end
 end

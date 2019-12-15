@@ -56,9 +56,11 @@ module Actions
     snake = state.snake
     new_positions = [next_position] + snake.positions[0...-1]
     state.snake.positions = new_positions
+    state
   end
 
   def self.end_game(state)
     state.game_finished = true
+    state
   end
 end
