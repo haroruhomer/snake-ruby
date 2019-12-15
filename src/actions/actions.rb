@@ -5,9 +5,9 @@ module Actions
     next_position = calc_next_position(state)
     # Check next coord is valid
     if next_coord_is_valid?(state, next_position)
-      move_snake_to(state, next_position)
+      state = move_snake_to(state, next_position)
     else
-      end_game(state)
+      state = end_game(state)
     end
   end
   private

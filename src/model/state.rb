@@ -33,7 +33,7 @@ module Model
         Model::Direction::DOWN,
         false #game_finished
     )
-
+    state
   end
 
 end
