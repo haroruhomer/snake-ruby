@@ -16,6 +16,9 @@ class App
     loop do
       @state = Actions::move_snake(@state)
       @view.render(@state)
+      if @state.game_finished
+        break 
+      end
       #Trigger Move Snake Action
       sleep 0.5
     end
