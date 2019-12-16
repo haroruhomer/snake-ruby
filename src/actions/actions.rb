@@ -1,10 +1,14 @@
 require_relative '../../src/model/state'
 module Actions
+
   def self.move_snake(state)
     next_direction = state.next_direction
     next_position = calc_next_position(state)
     # Check next coord is valid
-    if next_coord_is_valid?(state, next_position)
+    if next_position_is_food?(state, next_position)
+      state = grow_snake(state, next_position)
+      generate_new_food(state)
+    elsif next_coord_is_valid?(state, next_position)
       state = move_snake_to(state, next_position)
     else
       state = end_game(state)
@@ -76,13 +80,27 @@ module Actions
     false
   end
 
+  def self.next_position_is_food?(state, next_position)
+    food = state.food
+    food.row == next_position.row && food.col == next_position.col
+  end
+  def self.grow_snake(state, next_position)
+    new_positions = [next_position] + state.snake.positions
+    state.snake.positions = new_positions
+    state
+  end
+
   def self.move_snake_to(state, next_position)
     snake = state.snake
     new_positions = [next_position] + snake.positions[0...-1]
     state.snake.positions = new_positions
     state
   end
-
+  def self.generate_new_food(state)
+    state.food.row = rand(0..state.grid.rows)
+    state.food.col = rand(0..state.grid.cols)
+    state
+  end
   def self.end_game(state)
     state.game_finished = true
     state

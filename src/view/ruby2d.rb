@@ -1,17 +1,24 @@
 require 'ruby2d'
 module View
   class Ruby2dView
-    def initialize
+    def initialize(app)
       @pixel_size = 30
+      @app = app
     end
     def start(state)
       extend Ruby2D::DSL
       set title: "Hello",
           width: state.grid.cols * @pixel_size,
           height: state.grid.rows * @pixel_size
+
+      on :key_down do |event|
+        handle_key_event(event)
+      end
       show
     end
     def render(state)
+      extend Ruby2D::DSL
+      close if state.game_finished
       render_snake(state)
       render_food(state)
     end
@@ -25,7 +32,7 @@ module View
           x: food.col * @pixel_size,
           y: food.row * @pixel_size,
           size: @pixel_size,
-          color: 'random'
+          color: 'red'
           )
       state
     end
@@ -43,6 +50,20 @@ module View
         )
       end
     end
+
+    def handle_key_event(event)
+      case event.key
+      when "up"
+        @app.send_action(:change_direction,Model::Direction::UP)
+      when "down"
+        @app.send_action(:change_direction,Model::Direction::DOWN)
+      when "left"
+        @app.send_action(:change_direction,Model::Direction::LEFT)
+      when "right"
+        @app.send_action(:change_direction,Model::Direction::RIGHT)
+      end
+    end
+
   end
 end
 
